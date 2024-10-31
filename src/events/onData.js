@@ -1,5 +1,1 @@
-
-
-export const onData = (socket) => {
-    
-}
+export const onData = (socket) => {};
