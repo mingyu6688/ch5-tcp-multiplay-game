@@ -1,0 +1,5 @@
+
+
+export const onError = (socket) => {
+    
+}
