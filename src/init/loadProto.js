@@ -31,20 +31,15 @@ const protoMessages = {};
 export const loadProtos = async () => {
   try {
     const root = new protobuf.Root();
-    console.log('Protobuf 파일을 로드합니다...');
 
     await Promise.all(protoFiles.map((file) => root.load(file)));
-    console.log('Promise');
     for (const [packageName, types] of Object.entries(packetNames)) {
-      console.log(packageName);
       protoMessages[packageName] = {};
       for (const [type, typeName] of Object.entries(types)) {
         protoMessages[packageName][type] = root.lookupType(typeName);
       }
     }
 
-    console.log('Protobuf 파일이 로드되었습니다.');
-    console.log(protoMessages);
   } catch (e) {
     console.error('Protobuf 파일 로드 중 오류가 발생했습니다.');
   }

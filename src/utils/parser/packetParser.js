@@ -1,6 +1,6 @@
-import { CLIENT_VERSION } from '../../src/constants/env.js';
-import { getProtoTypeNameByHandlerId } from '../../src/handler/index.js';
-import { getProtoMessages } from '../../src/init/loadProto.js';
+import { CLIENT_VERSION } from '../../constants/env.js';
+import { getProtoTypeNameByHandlerId } from '../../handler/index.js';
+import { getProtoMessages } from '../../init/loadProto.js';
 
 export const packetParser = (data) => {
   const protoMessages = getProtoMessages();
@@ -15,7 +15,9 @@ export const packetParser = (data) => {
 
   const handlerId = packet.handlerId;
   const userId = packet.userId;
-  const clientVersion = packet.clientVersion;
+  const clientVersion = packet.version;
+  // console.log(packet.sequence);
+  // console.log(packet.payload);
 
   if (clientVersion !== CLIENT_VERSION) {
     throw Error();
@@ -28,6 +30,7 @@ export const packetParser = (data) => {
 
   const [namespace, typeName] = protoTypeName.split('.');
   const payloadType = protoMessages[namespace][typeName];
+
   let payload;
 
   try {
